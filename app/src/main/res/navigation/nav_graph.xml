@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="net.kartikchawla.tic_tac_toe_masters.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_gameBoardFragment"
+            app:destination="@id/gameBoardFragment"
+            app:popUpTo="@id/gameBoardFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_scoreListFragment"
+            app:destination="@id/scoreListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameBoardFragment"
+        android:name="net.kartikchawla.tic_tac_toe_masters.GameBoardFragment"
+        android:label="fragment_game_board"
+        tools:layout="@layout/fragment_game_board" >
+        <action
+            android:id="@+id/action_gameBoardFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="net.kartikchawla.tic_tac_toe_masters.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_scoreListFragment"
+            app:destination="@id/scoreListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scoreListFragment"
+        android:name="net.kartikchawla.tic_tac_toe_masters.ScoreListFragment"
+        android:label="fragment_score_list"
+        tools:layout="@layout/fragment_score_list" >
+        <action
+            android:id="@+id/action_scoreListFragment_to_pastGameFragment"
+            app:destination="@id/pastGameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pastGameFragment"
+        android:name="net.kartikchawla.tic_tac_toe_masters.PastGameFragment"
+        android:label="fragment_past_game"
+        tools:layout="@layout/fragment_past_game" >
+        <action
+            android:id="@+id/action_pastGameFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>
