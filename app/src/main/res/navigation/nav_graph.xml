@@ -35,6 +35,9 @@
         android:name="net.kartikchawla.tic_tac_toe_masters.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="result"
+            app:argType="string" />
         <action
             android:id="@+id/action_resultFragment_to_scoreListFragment"
             app:destination="@id/scoreListFragment" />
