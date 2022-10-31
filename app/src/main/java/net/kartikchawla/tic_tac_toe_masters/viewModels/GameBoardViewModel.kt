@@ -22,6 +22,19 @@ class GameBoardViewModel: ViewModel() {
     private var _gameState = MutableLiveData<String>( "X's Turn")
     val gameState get() = _gameState
 
+    private var _result = MutableLiveData<String>( "")
+    val result get() = _result
+
+    private var _gameBoardButtons = MutableLiveData<List<String>>(mutableListOf("", "", "","", "", "","", "", "", ""))
+    val gameBoardButtons get() = _gameBoardButtons
+
+    private var gameBoardButtonsCopy = mutableListOf("", "", "","", "", "","", "", "", "")
+
+    init {
+//    gameBoardButtonsCopy = _gameBoardButtons.value!!
+//        _gameBoardButtons.value = ArrayList()
+    }
+
     private var whoWon = ""
 
     private var lastPlayed = ""
@@ -43,6 +56,7 @@ class GameBoardViewModel: ViewModel() {
     )
 
     fun gridButtonClickHandler(num: Int): String {
+        println(gameBoardButtons.value)
         orderOfMoves += num.toString() + ","
         totalMoves++
         val currentTurn = whoseTurn.value!!
@@ -62,16 +76,14 @@ class GameBoardViewModel: ViewModel() {
         var movePlayed = ""
         if(buttonText == "" && !gameOver.value!!) {
             movePlayed = gridButtonClickHandler(id)
+            square.text = movePlayed
+            gameBoardButtonsCopy[id] = movePlayed;
+            gameBoardButtons.value = gameBoardButtonsCopy
+            println(gameBoardButtons.value)
+            println(gameOver.value)
             gameState.value = whoseTurn.value + "'s Turn"
         }
         isGameFinished()
-        if(gameOver.value!!) {
-            if(whoWon.length > 0) {
-                gameState.value = whoWon + " Won!!"
-            } else {
-                gameState.value = "Draw!"
-            }
-        }
         return movePlayed
     }
 
@@ -84,33 +96,37 @@ class GameBoardViewModel: ViewModel() {
 
         for (item in winningCombinations) {
             val positions = item as IntArray
+            println(movesPlayed[positions[0]])
+            println(movesPlayed[positions[1]])
+            println(movesPlayed[positions[2]])
+            println(lastPlayed)
             if(movesPlayed[positions[0]] == lastPlayed &&
                 movesPlayed[positions[1]] == lastPlayed &&
                 movesPlayed[positions[2]] == lastPlayed) {
                 whoWon = lastPlayed
-                setEndGameMessage()
-                _gameOver.value = true
+                setEndGameMessage(true)
                 return
             }
         }
-        _gameOver.value = totalMoves == 9
-        setEndGameMessage()
+        println("totalMoves")
+        println(totalMoves)
+        setEndGameMessage(totalMoves == 9)
         return
     }
-    private fun setEndGameMessage() {
-        if(whoWon.length > 0) {
-            gameState.value = whoWon + " Won!!"
-        } else {
-            gameState.value = "Draw!"
+    private fun setEndGameMessage(gameOverValue: Boolean = false) {
+            if(whoWon.isNotEmpty()) {
+                result.value = whoWon + " Won!!"
+            } else {
+                result.value = "Draw!"
         }
-    }
-    fun saveGame() {
-
+        _gameOver.value = gameOverValue
+        println("result.value")
+        println(result.value)
     }
     class Constants {
         companion object {
-            val X = "X"
-            val O = "O"
+            const val X = "X"
+            const val O = "O"
         }
     }
 

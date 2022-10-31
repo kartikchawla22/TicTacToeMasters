@@ -30,7 +30,7 @@ class GameBoardFragment : Fragment() {
 
         viewModel.gameOver.observe(viewLifecycleOwner, Observer { newValue ->
             if (newValue) {
-                val action = GameBoardFragmentDirections.actionGameBoardFragmentToResultFragment(viewModel.gameState.value!!)
+                val action = GameBoardFragmentDirections.actionGameBoardFragmentToResultFragment(viewModel.result.value!!)
                 view.findNavController().navigate(directions = action)
             }
         })
@@ -48,7 +48,7 @@ class GameBoardFragment : Fragment() {
 
     fun squareTouched(square: View, id: Int) {
         val turn = viewModel.squareTouchedHandler(square, id)
-        (square as Button).text = turn
+//        (square as Button).text = turn
     }
 
 
