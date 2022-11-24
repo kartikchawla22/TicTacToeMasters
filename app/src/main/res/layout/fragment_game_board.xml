@@ -52,7 +52,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button8"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+            app:layout_constraintTop_toBottomOf="@+id/button4"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 7)}" />
 
         <Button
             android:id="@+id/button9"
@@ -66,7 +67,8 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button8"
-            app:layout_constraintTop_toBottomOf="@+id/button6" />
+            app:layout_constraintTop_toBottomOf="@+id/button6"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 9)}" />
 
         <Button
             android:id="@+id/button8"
@@ -80,7 +82,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button9"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button7"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
+            app:layout_constraintTop_toBottomOf="@+id/button5"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 8)}" />
 
         <Button
             android:id="@+id/button1"
@@ -94,7 +97,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 1)}" />
 
         <Button
             android:id="@+id/button3"
@@ -109,7 +113,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button2"
             app:layout_constraintTop_toTopOf="@+id/imageView2"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 3)}" />
 
         <Button
             android:id="@+id/button2"
@@ -123,7 +128,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button1"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 2)}" />
 
         <Button
             android:id="@+id/button4"
@@ -137,7 +143,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/button1" />
+            app:layout_constraintTop_toBottomOf="@+id/button1"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 4)}" />
 
         <Button
             android:id="@+id/button6"
@@ -151,7 +158,8 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button5"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintTop_toBottomOf="@+id/button3"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 6)}" />
 
         <Button
             android:id="@+id/button5"
@@ -165,7 +173,8 @@
             app:layout_constraintEnd_toStartOf="@+id/button6"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/button2"
+            android:onClick="@{(view) -> gameBoardViewModel.squareTouchedHandler(view, 5)}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,18 @@
 package net.kartikchawla.tic_tac_toe_masters.viewModels
 
-import android.content.SharedPreferences
 import android.view.View
 import android.widget.Button
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlin.system.exitProcess
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import net.kartikchawla.tic_tac_toe_masters.database.Game_DAO
+import net.kartikchawla.tic_tac_toe_masters.database.Games
+import java.text.SimpleDateFormat
+import java.util.*
 
-class GameBoardViewModel: ViewModel() {
+class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
     private val _gameOver = MutableLiveData<Boolean>(false)  // How the word is displayed
     val gameOver: LiveData<Boolean> get() = _gameOver
 
@@ -29,11 +33,6 @@ class GameBoardViewModel: ViewModel() {
     val gameBoardButtons get() = _gameBoardButtons
 
     private var gameBoardButtonsCopy = mutableListOf("", "", "","", "", "","", "", "", "")
-
-    init {
-//    gameBoardButtonsCopy = _gameBoardButtons.value!!
-//        _gameBoardButtons.value = ArrayList()
-    }
 
     private var whoWon = ""
 
@@ -122,6 +121,27 @@ class GameBoardViewModel: ViewModel() {
         _gameOver.value = gameOverValue
         println("result.value")
         println(result.value)
+    }
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
+    fun saveGame() {
+        viewModelScope.launch {
+            val newGame = Games()
+            val date = getCurrentDateTime()
+            val dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
+            println(dateInString)
+            newGame.whoWon = whoWon
+            newGame.gameOrderOfMoves = orderOfMoves
+            newGame.gameDataTime = dateInString
+            gameDao.insert(newGame)
+        }
     }
     class Constants {
         companion object {
