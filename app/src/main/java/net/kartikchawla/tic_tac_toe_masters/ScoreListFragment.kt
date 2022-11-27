@@ -5,55 +5,52 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import net.kartikchawla.tic_tac_toe_masters.databinding.FragmentScoreListBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import net.kartikchawla.tic_tac_toe_masters.database.GameDataBase
+import net.kartikchawla.tic_tac_toe_masters.viewModelFactories.ScoreListViewModelFactory
+import net.kartikchawla.tic_tac_toe_masters.viewModels.ScoreListViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ScoreListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ScoreListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentScoreListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_score_list, container, false)
+
+        _binding = FragmentScoreListBinding.inflate(inflater,container,false)
+        val view = binding.root
+
+        val application = requireNotNull(this.activity).application
+        val dao = GameDataBase.getInstance(application).gameDao
+        val viewModelFactory = ScoreListViewModelFactory(dao)
+        val viewModel = ViewModelProvider(this,viewModelFactory).get(ScoreListViewModel::class.java)
+
+        binding.scoreViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        val adapter = ScoreItemAdapter()
+        binding.scoreList.adapter = adapter
+
+        viewModel.scores.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
+
+        binding.homeButton.setOnClickListener() {
+            val action = ScoreListFragmentDirections.actionScoreListFragmentToHomeFragment()
+            view.findNavController().navigate(directions = action)
+        }
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ScoreListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ScoreListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
