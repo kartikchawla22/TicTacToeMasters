@@ -2,38 +2,33 @@ package net.kartikchawla.tic_tac_toe_masters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import net.kartikchawla.tic_tac_toe_masters.database.Games
+import net.kartikchawla.tic_tac_toe_masters.databinding.ScoreItemBinding
 
-class ScoreItemAdapter : RecyclerView.Adapter<ScoreItemAdapter.ScoreItemViewHolder>() {
-    var data = listOf<Games>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = data.size
+class ScoreItemAdapter : ListAdapter<Games, ScoreItemAdapter.ScoreItemViewHolder>(ScoreDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoreItemViewHolder = ScoreItemViewHolder.inflateFrom(parent)
 
     override fun onBindViewHolder(holder: ScoreItemViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
-    class ScoreItemViewHolder(val rootView : TextView) : RecyclerView.ViewHolder(rootView) {
+    class ScoreItemViewHolder(val binding : ScoreItemBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object{
             fun inflateFrom(parent: ViewGroup) : ScoreItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.score_item,parent,false) as TextView
+//                val view = layoutInflater.inflate(R.layout.score_item,parent,false) as TextView
 
-                return ScoreItemViewHolder(view)
+                val binding = ScoreItemBinding.inflate(layoutInflater, parent, false)
+                return ScoreItemViewHolder(binding)
             }
         }
 
         fun bind(item: Games) {
-            rootView.text = item.whoWon + " Won!!"
+            binding.score = item
         }
     }
 }

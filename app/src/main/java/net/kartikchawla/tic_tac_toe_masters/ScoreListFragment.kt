@@ -38,7 +38,7 @@ class ScoreListFragment : Fragment() {
 
         viewModel.scores.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
 
