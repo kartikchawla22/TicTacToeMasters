@@ -33,12 +33,22 @@ class ScoreListFragment : Fragment() {
         binding.scoreViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = ScoreItemAdapter()
+        val adapter = ScoreItemAdapter {
+//            gameID -> Toast.makeText(context, "Clicked Game $gameID", Toast.LENGTH_SHORT).show()
+            gameID -> viewModel.onGameClicked(gameID)
+        }
         binding.scoreList.adapter = adapter
 
         viewModel.scores.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToPastGame.observe(viewLifecycleOwner, Observer { gameID ->
+            gameID?.let {
+                val action = ScoreListFragmentDirections.actionScoreListFragmentToPastGameFragment(gameID)
+                view.findNavController().navigate(directions = action)
             }
         })
 
