@@ -1,25 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".PastGameFragment">
 
-    <TextView
-        android:id="@+id/pastGameId"
+    <data>
+        <variable
+            name="pastGameViewModel"
+            type="net.kartikchawla.tic_tac_toe_masters.viewModels.PastGameViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="18dp"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Home" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gameBoardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/pastGameId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:text="@{pastGameViewModel.game.whoWon}"
+                app:layout_constraintBottom_toTopOf="@+id/gridImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/gridImage"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/green_grid"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pastGameId" />
+
+            <TextView
+                android:id="@+id/textV7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[7]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toBottomOf="@+id/gridImage"
+                app:layout_constraintEnd_toStartOf="@+id/textV8"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/gridImage"
+                app:layout_constraintTop_toBottomOf="@+id/textV4" />
+
+            <TextView
+                android:id="@+id/textV9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[9]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toBottomOf="@+id/gridImage"
+                app:layout_constraintEnd_toEndOf="@+id/gridImage"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV8"
+                app:layout_constraintTop_toBottomOf="@+id/textV6" />
+
+            <TextView
+                android:id="@+id/textV8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[8]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toBottomOf="@+id/gridImage"
+                app:layout_constraintEnd_toStartOf="@+id/textV9"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV7"
+                app:layout_constraintTop_toBottomOf="@+id/textV5" />
+
+            <TextView
+                android:id="@+id/textV1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[1]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV4"
+                app:layout_constraintEnd_toStartOf="@+id/textV2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/gridImage"
+                app:layout_constraintTop_toTopOf="@+id/gridImage" />
+
+            <TextView
+                android:id="@+id/textV3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[3]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV6"
+                app:layout_constraintEnd_toEndOf="@+id/gridImage"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV2"
+                app:layout_constraintTop_toTopOf="@+id/gridImage"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textV2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[2]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV5"
+                app:layout_constraintEnd_toStartOf="@+id/textV3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV1"
+                app:layout_constraintTop_toTopOf="@+id/gridImage" />
+
+            <TextView
+                android:id="@+id/textV4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[4]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV7"
+                app:layout_constraintEnd_toStartOf="@+id/textV5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/gridImage"
+                app:layout_constraintTop_toBottomOf="@+id/textV1" />
+
+            <TextView
+                android:id="@+id/textV6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[6]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV9"
+                app:layout_constraintEnd_toEndOf="@+id/gridImage"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV5"
+                app:layout_constraintTop_toBottomOf="@+id/textV3" />
+
+            <TextView
+                android:id="@+id/textV5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:text="@{pastGameViewModel.gameBoardTextViews[5]}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="80sp"
+                app:layout_constraintBottom_toTopOf="@+id/textV8"
+                app:layout_constraintEnd_toStartOf="@+id/textV6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textV4"
+                app:layout_constraintTop_toBottomOf="@+id/textV2" />
+
+            <Button
+                android:id="@+id/homeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </LinearLayout>
+</layout>

@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:padding="10dp"
-                android:text="@{score.whoWon+` Won!`}"/>
+                android:text="@{score.whoWon}"/>
 
             <TextView
                 android:id="@+id/scoreDate"

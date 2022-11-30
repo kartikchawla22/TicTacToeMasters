@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import net.kartikchawla.tic_tac_toe_masters.database.Game_DAO
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 
 class ScoreListViewModel(val dao: Game_DAO): ViewModel(){
     val scores = dao.getAll()

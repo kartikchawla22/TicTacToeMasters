@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
 import net.kartikchawla.tic_tac_toe_masters.database.Games
 import net.kartikchawla.tic_tac_toe_masters.databinding.ScoreItemBinding
-import net.kartikchawla.tic_tac_toe_masters.generated.callback.OnClickListener
 
 class ScoreItemAdapter(val clickListener: (gameID: Long) -> Unit) : ListAdapter<Games, ScoreItemAdapter.ScoreItemViewHolder>(ScoreDiffItemCallback()) {
 

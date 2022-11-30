@@ -34,7 +34,6 @@ class ScoreListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = ScoreItemAdapter {
-//            gameID -> Toast.makeText(context, "Clicked Game $gameID", Toast.LENGTH_SHORT).show()
             gameID -> viewModel.onGameClicked(gameID)
         }
         binding.scoreList.adapter = adapter
