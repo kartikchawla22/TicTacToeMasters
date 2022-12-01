@@ -34,6 +34,8 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
 
     private var gameBoardButtonsCopy = mutableListOf("", "", "","", "", "","", "", "", "")
 
+    private var gameBoardMovementsCopy = mutableListOf("-", "-", "-","-", "-", "-","-", "-", "-", "-")
+
     private var whoWon = ""
 
     private var lastPlayed = ""
@@ -41,6 +43,7 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
     private var totalMoves = 0
 
     private var orderOfMoves = ""
+
 
 
     private val winningCombinations: Array<IntArray> = arrayOf(
@@ -76,6 +79,7 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
         if(buttonText == "" && !gameOver.value!!) {
             movePlayed = gridButtonClickHandler(id)
             square.text = movePlayed
+            gameBoardMovementsCopy[id] =movePlayed
             gameBoardButtonsCopy[id] = movePlayed;
             gameBoardButtons.value = gameBoardButtonsCopy
             println(gameBoardButtons.value)
@@ -107,6 +111,7 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
                 return
             }
         }
+        whoWon = ""
         println("totalMoves")
         println(totalMoves)
         setEndGameMessage(totalMoves == 9)
@@ -114,9 +119,11 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
     }
     private fun setEndGameMessage(gameOverValue: Boolean = false) {
             if(whoWon.isNotEmpty()) {
-                result.value = whoWon + " Won!!"
+                whoWon = whoWon + " Won!!"
+                result.value = whoWon
             } else {
-                result.value = "Draw!"
+                whoWon = "Draw!"
+                result.value = whoWon
         }
         _gameOver.value = gameOverValue
         println("result.value")
@@ -140,6 +147,7 @@ class GameBoardViewModel(private val gameDao: Game_DAO): ViewModel() {
             newGame.whoWon = whoWon
             newGame.gameOrderOfMoves = orderOfMoves
             newGame.gameDataTime = dateInString
+            newGame.gameMoves = gameBoardMovementsCopy.toString()
             gameDao.insert(newGame)
         }
     }

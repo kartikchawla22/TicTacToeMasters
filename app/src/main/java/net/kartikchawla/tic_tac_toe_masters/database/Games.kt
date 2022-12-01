@@ -13,5 +13,7 @@ data class Games (
     @ColumnInfo(name = "date")
     var gameDataTime: String = "",
     @ColumnInfo(name = "order_of_moves")
-    var gameOrderOfMoves: String = ""
-)
+    var gameOrderOfMoves: String = "",
+    @ColumnInfo(name = "moves")
+    var gameMoves: String = ""
+    )

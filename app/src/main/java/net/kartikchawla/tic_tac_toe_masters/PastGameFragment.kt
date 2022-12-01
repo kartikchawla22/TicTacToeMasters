@@ -5,55 +5,50 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import net.kartikchawla.tic_tac_toe_masters.database.GameDataBase
+import net.kartikchawla.tic_tac_toe_masters.databinding.FragmentPastGameBinding
+import net.kartikchawla.tic_tac_toe_masters.viewModelFactories.PastGameViewModelFactory
+import net.kartikchawla.tic_tac_toe_masters.viewModels.PastGameViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PastGameFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PastGameFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentPastGameBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_past_game, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PastGameFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PastGameFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        _binding = FragmentPastGameBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        val gameId = PastGameFragmentArgs.fromBundle(requireArguments()).gameId
+
+        val application = requireNotNull(this.activity).application
+        val dao = GameDataBase.getInstance(application).gameDao
+
+        val viewModelFactory = PastGameViewModelFactory(gameId, dao)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(PastGameViewModel::class.java)
+
+        binding.pastGameViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.game.observe(viewLifecycleOwner, Observer { pastGame ->
+            if (pastGame.gameMoves != ""){
+                viewModel.setMovements(pastGame.gameMoves)
             }
+        })
+
+
+        binding.homeButton.setOnClickListener() {
+            val action = PastGameFragmentDirections.actionPastGameFragmentToHomeFragment()
+            view.findNavController().navigate(directions = action)
+        }
+
+        return view
     }
+
+
 }
